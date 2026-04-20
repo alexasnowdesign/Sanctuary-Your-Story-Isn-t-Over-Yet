@@ -1,0 +1,19 @@
+{
+  "name": "point-and-click-game",
+  "version": "1.0.0",
+  "description": "A point-and-click visual novel game with map navigation and dialogue system",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000 --bind 127.0.0.1",
+    "dev": "python -m http.server 8000"
+  },
+  "keywords": [
+    "game",
+    "point-and-click",
+    "visual-novel",
+    "html5",
+    "canvas"
+  ],
+  "author": "",
+  "license": "MIT"
+}

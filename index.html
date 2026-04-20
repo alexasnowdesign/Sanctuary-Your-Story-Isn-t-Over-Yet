@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanctuary; Your Story Isn’t Over Yet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Game canvas -->
+        <canvas id="game-canvas"></canvas>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="start-screen">
+            <img src="assets/ui/UI_sky.png" alt="" class="start-screen-sky">
+            <div class="start-screen-clouds"></div>
+            <img src="assets/ui/UI_bar1.png" alt="" class="start-screen-ground">
+            <img src="assets/ui/UI_fence.png" alt="" class="start-screen-fence">
+            <div class="start-screen-content">
+                <img src="assets/ui/UI_title.png" alt="Sanctuary" class="start-screen-logo">
+                <button id="start-game-btn" class="start-game-btn" type="button">Start Game</button>
+            </div>
+        </div>
+
+        <!-- Opening cutscene skip button -->
+        <button id="skip-cutscene-btn" class="cutscene-skip hidden" type="button" aria-label="Skip cutscene" title="Skip cutscene"></button>
+        
+        <!-- Dialogue portrait -->
+        <img id="dialogue-portrait" src="assets/characters/darling.png" alt="" class="dialogue-portrait hidden">
+        
+        <!-- Dialogue box -->
+        <div id="dialogue-box" class="dialogue-box hidden">
+            <div class="dialogue-content">
+                <div id="character-name" class="character-name"></div>
+                <p id="dialogue-text"></p>
+                <div class="dialogue-choices" id="dialogue-choices"></div>
+            </div>
+        </div>
+        
+        <!-- Fountain Popup -->
+        <div id="fountain-popup" class="fountain-popup hidden">
+            <div class="fountain-popup-content">
+                <p id="fountain-popup-text"></p>
+                <button id="fountain-popup-refresh" class="fountain-popup-btn" type="button" aria-label="New message" title="New message"></button>
+            </div>
+        </div>
+
+        <!-- Lounge Game Cabinet Popup -->
+        <div id="game-cabinet-popup" class="game-cabinet-popup hidden">
+            <div class="game-cabinet-content">
+                <div class="game-cabinet-header">
+                    <h2>Game Cabinet</h2>
+                    <button id="game-cabinet-close" class="game-cabinet-close" type="button" aria-label="Close">X</button>
+                </div>
+                <div class="game-cabinet-body">
+                    <div id="game-cabinet-list" class="game-cabinet-list"></div>
+                    <div class="game-cabinet-details">
+                        <img id="game-cabinet-image" class="game-cabinet-image hidden" src="" alt="Selected game screenshot">
+                        <div id="game-cabinet-description" class="game-cabinet-description"></div>
+                        <button id="game-cabinet-play" class="game-cabinet-play hidden" type="button">Play Selected Game</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workshop Prompt Popup -->
+        <div id="workshop-prompt-popup" class="workshop-prompt-popup hidden">
+            <div class="workshop-prompt-content">
+                <div class="workshop-prompt-header">
+                    <h2>Writing Prompt</h2>
+                    <button id="workshop-prompt-close" class="workshop-prompt-close" type="button" aria-label="Close">X</button>
+                </div>
+                <p id="workshop-prompt-text" class="workshop-prompt-text"></p>
+                <textarea id="workshop-prompt-answer" class="workshop-prompt-answer" placeholder="Type your answer here..." aria-label="Prompt response"></textarea>
+                <div class="workshop-prompt-actions">
+                    <button id="workshop-prompt-next" class="workshop-prompt-btn" type="button">New Prompt</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toolbox Categories Popup -->
+        <div id="toolbox-popup" class="toolbox-popup hidden">
+            <div class="toolbox-categories-content">
+                <div class="toolbox-header">
+                    <h2>States of Mind Toolbox</h2>
+                    <button id="toolbox-close" class="toolbox-close" type="button" aria-label="Close">X</button>
+                </div>
+                <div class="toolbox-categories-body">
+                    <p class="toolbox-categories-helper">Pick a category to open alternatives for the following emotions or needs.</p>
+                    <div id="toolbox-list" class="toolbox-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toolbox Solutions Popup -->
+        <div id="toolbox-solutions-popup" class="toolbox-popup hidden">
+            <div class="toolbox-solutions-content">
+                <div class="toolbox-header">
+                    <h2 id="toolbox-title">Category</h2>
+                    <button id="toolbox-solutions-close" class="toolbox-close" type="button" aria-label="Close">X</button>
+                </div>
+                <div class="toolbox-solutions-body">
+                    <p id="toolbox-description">Alternatives:</p>
+                    <ul id="toolbox-alternatives" class="toolbox-alternatives"></ul>
+                </div>
+                <div class="toolbox-solutions-actions">
+                    <button id="toolbox-back" class="toolbox-action-btn" type="button">Back to Categories</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bedside Sheet Popup -->
+        <div id="bedside-popup" class="bedside-popup hidden">
+            <div class="bedside-content">
+                <div class="bedside-header">
+                    <h2>Safety Plan</h2>
+                    <button id="bedside-close" class="bedside-close" type="button" aria-label="Close">X</button>
+                </div>
+                <div class="bedside-body">
+                    <img id="bedside-image" src="assets/ui/Sanctuary_safetyplan.png" alt="Safety Plan" class="bedside-image">
+                </div>
+                <div class="bedside-actions">
+                    <button id="bedside-print" class="bedside-btn" type="button">Print Sheet</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources Popup -->
+        <div id="resources-popup" class="resources-popup hidden">
+            <div class="resources-content">
+                <div class="resources-header">
+                    <h2>Resources</h2>
+                    <button id="resources-close" class="resources-close" type="button" aria-label="Close">X</button>
+                </div>
+                <div class="resources-body">
+                    <p class="resources-helper">Here are helpful resources and support options:</p>
+                    <div id="resources-list" class="resources-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grounding Techniques Popup -->
+        <div id="grounding-popup" class="grounding-popup hidden">
+            <div class="grounding-content">
+                <div class="grounding-body">
+                    <p class="grounding-helper">Choose a grounding technique to help you feel more present and connected to the moment.</p>
+                    <div id="grounding-list" class="grounding-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grounding Instructions Popup -->
+        <div id="grounding-instructions-popup" class="grounding-instructions-popup hidden">
+            <div class="grounding-instructions-content">
+                <button id="grounding-instructions-back" class="grounding-instructions-back" type="button" aria-label="Back">← Back</button>
+                <button id="grounding-instructions-close" class="grounding-instructions-close" type="button" aria-label="Close">X</button>
+                <div class="grounding-instructions-body">
+                    <p id="grounding-instruction-text"></p>
+                </div>
+                <div class="grounding-instructions-nav">
+                    <button id="grounding-instructions-prev" class="grounding-instructions-btn" type="button">← Previous</button>
+                    <span id="grounding-instructions-counter">1/1</span>
+                    <button id="grounding-instructions-next" class="grounding-instructions-next" type="button" aria-label="Next"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bookshelf Background Overlay -->
+        <div id="bookshelf-overlay" class="bookshelf-overlay hidden"></div>
+
+        <!-- Bookshelf -->
+        <div id="bookshelf-books" class="bookshelf-books hidden"></div>
+
+        <!-- Book Story Reader Popup -->
+        <div id="book-story-popup" class="book-story-popup hidden">
+            <div class="book-story-content">
+                <div class="book-story-header">
+                    <button id="book-story-back" class="book-story-back" type="button" aria-label="Back">← Back</button>
+                    <span id="book-story-counter">1/1</span>
+                    <button id="book-story-close" class="book-story-close" type="button" aria-label="Close">X</button>
+                </div>
+                <div class="book-story-body">
+                    <div class="book-story-left-page" id="book-story-left-page"></div>
+                    <div class="book-story-right-page" id="book-story-right-page"></div>
+                </div>
+                <div class="book-story-navigation">
+                    <button id="book-story-prev" class="book-story-nav-btn" type="button">← Previous</button>
+                    <div class="book-story-meta">
+                        <button id="book-story-publish" class="book-story-publish hidden" type="button">Publish to Stories</button>
+                        <button id="book-story-delete" class="book-story-delete hidden" type="button">Delete Entry</button>
+                    </div>
+                    <button id="book-story-next" class="book-story-nav-btn" type="button">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Write Story Popup -->
+        <div id="write-story-popup" class="write-story-popup hidden">
+            <div class="write-story-content">
+                <div class="write-story-header">
+                    <h2>Write Your Story</h2>
+                    <button id="write-story-close" class="write-story-close" type="button" aria-label="Close">X</button>
+                </div>
+                <textarea id="write-story-input" class="write-story-input" placeholder="Write your story, memory, or thought here..." aria-label="Story input"></textarea>
+                <div class="write-story-actions">
+                    <button id="write-story-submit" class="write-story-btn" type="button">Submit Story</button>
+                    <button id="write-story-cancel" class="write-story-btn write-story-btn-cancel" type="button">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- UI Layer -->
+        <div id="ui-layer" class="ui-layer">
+            <div id="room-title" class="room-title">Room Name</div>
+        </div>
+    </div>
+
+    <button id="boop-btn" class="boop-btn" type="button" aria-label="Play boop sound" title="Play boop sound"></button>
+        <div id="boop-encourage-box" class="boop-encourage-box hidden"></div>
+    <button id="bgm-toggle-btn" class="bgm-toggle-btn" type="button" aria-pressed="false" aria-label="Mute Music" title="Mute Music"></button>
+
+    <!-- Game Scripts -->
+    <script src="js/audio.js"></script>
+    <script src="js/room.js"></script>
+    <script src="js/dialogue.js"></script>
+    <script src="js/minigames.js"></script>
+    <script src="js/game.js"></script>
+    <div class="site-footer">Made by Alexa Snow</div>
+</body>
+</html>
